@@ -352,7 +352,6 @@ select {
 
   </style>
 </head>
-
 <body>
   <div id="overlay" style="display:none;"></div>
   <img id="loadingIcon" alt="Loading..." style="display:none;">
@@ -363,29 +362,32 @@ select {
         he tries
       </div>
       <div class="header-container">
-        <div class="header-flex">
-          <header>
-            <div id="imageContainer" style="text-align:center;">
-              <img id="headerImage" alt="HistoryBot Logo" width="300">
-            </div>
-          </header>
-        </div>
-        <label id="contextDisplay" class="context-label"></label>
+          <div class="header-flex">
+              <header>
+                  <div id="imageContainer" style="text-align:center;">
+                      <img id="headerImage" alt="HistoryBot Logo" width="300">
+                  </div>
+              </header>
+          </div>
+          <label id="contextDisplay" class="context-label"></label>
       </div>
+
 
       <div class="container">
         <div class="input-group">
-          <input id="user_id" type="text" placeholder="User ID" value="" readonly>
+          <input id="user_id" type="text" placeholder="User ID" value="${userEmail}" readonly>
         </div>
         <div class="input-group">
-          <input id="conversationHistory" type="hidden" value="[]">
+          <input id="conversationHistory" type="hidden" value="${conversationHistoryJson}">
         </div>
         <div class="input-group">
           <textarea id="question" rows="2" placeholder="Question"></textarea>
         </div>
         <div class="flex-container">
           <label for="systemInstruction">Select Personality: </label>
-          <select id="systemInstruction"></select>
+          <select id="systemInstruction">
+          </select>
+          
         </div>
 
         <button id="submitButton">Submit</button>
@@ -404,27 +406,63 @@ select {
       </div>
     </div>
   </div>
+  </div>
 
   <script>
-    // Initialize conversation history
-    const conversationHistory = [];
 
     // Replace `userEmail` variable with an empty string or prompt the user for input
-    const userEmail = "timothykerns@gmail.com";
-
-    document.getElementById('user_id').value = userEmail;
-
+    const userEmail =  "timothykerns@gmail.com";
+    const conversationHistory = [];
     function handleFollowUpQuestion(originalQuestion) {
+      // Prompt the user for the follow-up question using a dialog box or a modal
       const followUpQuestion = prompt("Ask your follow-up question:");
+
+      // Check if the user provided a follow-up question
       if (followUpQuestion) {
+        // Update the input field with the follow-up question
         document.getElementById('question').value = 'Follow-up on: ' + originalQuestion.replace('Follow-up on: ', '') + ' ' + followUpQuestion;
-        fetchData();
+
+        // Optionally, you can focus on the input field for convenience
+        document.getElementById('question').focus();
+
+        fetchData(); // <--- Corrected line
       }
     }
 
-    function updateConversationHistory(conversation) {
-      // Your existing code here to display conversation history
+function updateConversationHistory(conversation) {
+    const ChatElement = document.getElementById('chatText');
+    let chatHTML = '';
+    const newlineRegex = new RegExp('\\n', 'g');
+    conversation.forEach((message, index) => {
+        const messageContainer = document.createElement('div');
+        messageContainer.classList.add('message-container');
+
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message', message.role); 
+        messageElement.innerHTML = message.content.replace(newlineRegex, "<br>");
+
+        // Make the message element clickable if it's from the assistant
+        if (message.role === 'assistant') {
+            messageElement.style.cursor = 'pointer';
+            messageElement.dataset.index = index;  // Store the index for use in the click handler
+        }
+
+        messageContainer.appendChild(messageElement);
+        chatHTML += messageContainer.outerHTML; 
+    });
+
+    // Set innerHTML once after the loop
+    ChatElement.innerHTML = chatHTML;
+
+    // Scroll to the bottom to always show the latest message
+    ChatElement.scrollTop = ChatElement.scrollHeight;
+    if (ChatElement.innerHTML !== '') {
+        document.getElementById('followUpButton').style.display = 'block';
+        document.getElementById('followUpQuestion').style.display = 'block';
+        document.getElementById('resetButton').style.display = 'block';
     }
+}
+
 
     function getLastBotQuestion() {
       for (let i = conversationHistory.length - 1; i >= 0; i--) {
@@ -432,7 +470,7 @@ select {
           return conversationHistory[i].content.replace('Follow-up on: ', '');
         }
       }
-      return '';
+      return '';  // Return an empty string if no user question is found (just a safety measure)
     }
 
     function getLastUserQuestion() {
@@ -441,7 +479,7 @@ select {
           return conversationHistory[i].content.replace('Follow-up on: ', '');
         }
       }
-      return '';
+      return '';  // Return an empty string if no user question is found (just a safety measure)
     }
 
     async function fetchData(isFollowUp = false) {
@@ -456,7 +494,6 @@ select {
         question = document.getElementById('question').value;
         shortenedQuestion = document.getElementById('question').value;
       }
-
       if (!question) {
         alert("Please enter a question before submitting.");
         return; // Exit the function early
@@ -710,5 +747,4 @@ window.addEventListener('unhandledrejection', function(event) {
 
   </script>
 </body>
-
 </html>
