@@ -430,6 +430,7 @@ select {
     }
 
 function updateConversationHistory(conversation) {
+console.log(conversation);
     const ChatElement = document.getElementById('chatText');
     let chatHTML = '';
     const newlineRegex = new RegExp('\\n', 'g');
