@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Your CSS here, unchanged */
+  </style>
+</head>
+
+<body>
+  <div id="overlay" style="display:none;"></div>
+  <img id="loadingIcon" alt="Loading..." style="display:none;">
+  <div class="content-above-table">
+    <div class="flex-center">
+      <div class="cute-disclaimer">
+        🐱‍👤 <strong>Note:</strong> KernsBot may produce inaccurate information about people, places, or facts. Sorry,
+        he tries
+      </div>
+      <div class="header-container">
+        <div class="header-flex">
+          <header>
+            <div id="imageContainer" style="text-align:center;">
+              <img id="headerImage" alt="HistoryBot Logo" width="300">
+            </div>
+          </header>
+        </div>
+        <label id="contextDisplay" class="context-label"></label>
+      </div>
+
+      <div class="container">
+        <div class="input-group">
+          <input id="user_id" type="text" placeholder="User ID" value="" readonly>
+        </div>
+        <div class="input-group">
+          <input id="conversationHistory" type="hidden" value="[]">
+        </div>
+        <div class="input-group">
+          <textarea id="question" rows="2" placeholder="Question"></textarea>
+        </div>
+        <div class="flex-container">
+          <label for="systemInstruction">Select Personality: </label>
+          <select id="systemInstruction"></select>
+        </div>
+
+        <button id="submitButton">Submit</button>
+        <div id="chatDisplay">
+          <p><strong>Chat History:</strong></p>
+          <div id="chatText"></div>
+        </div>
+        <div class="input-group button-group">
+          <textarea id="followUpQuestion" rows="2" placeholder="Follow-up Question"></textarea>
+          <div class="button-container">
+            <button id="followUpButton">Ask Follow-up</button>
+            <button id="resetButton" style="display:none;">Reset Form</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize conversation history
+    const conversationHistory = [];
+
+    // Replace `userEmail` variable with an empty string or prompt the user for input
+    const userEmail = "timothykerns@gmail.com";
+
+    document.getElementById('user_id').value = userEmail;
+
+    function handleFollowUpQuestion(originalQuestion) {
+      const followUpQuestion = prompt("Ask your follow-up question:");
+      if (followUpQuestion) {
+        document.getElementById('question').value = 'Follow-up on: ' + originalQuestion.replace('Follow-up on: ', '') + ' ' + followUpQuestion;
+        fetchData();
+      }
+    }
+
+    function updateConversationHistory(conversation) {
+      // Your existing code here to display conversation history
+    }
+
+    function getLastBotQuestion() {
+      for (let i = conversationHistory.length - 1; i >= 0; i--) {
+        if (conversationHistory[i].role === 'assistant') {
+          return conversationHistory[i].content.replace('Follow-up on: ', '');
+        }
+      }
+      return '';
+    }
+
+    function getLastUserQuestion() {
+      for (let i = conversationHistory.length - 1; i >= 0; i--) {
+        if (conversationHistory[i].role === 'user') {
+          return conversationHistory[i].content.replace('Follow-up on: ', '');
+        }
+      }
+      return '';
+    }
+
+    async function fetchData(isFollowUp = false) {
+      const userId = document.getElementById('user_id').value;
+      let question;
+      let shortenedQuestion;
+
+      if (isFollowUp && conversationHistory.length > 1) {
+        question = getLastBotQuestion();
+        shortenedQuestion = document.getElementById('followUpQuestion').value;
+      } else {
+        question = document.getElementById('question').value;
+        shortenedQuestion = document.getElementById('question').value;
+      }
+
+      if (!question) {
+        alert("Please enter a question before
