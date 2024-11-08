@@ -553,7 +553,6 @@ console.log(conversation);
         return;  // Exit the function early
       }
       const dropdown = document.getElementById('systemInstruction');
-      const selectedMaxTokens = dropdown.options[dropdown.selectedIndex].dataset.maxTokens;
       setRandomLoadingImage();
       document.getElementById('loadingIcon').style.display = 'block';
       document.getElementById('overlay').style.display = 'block';
@@ -564,8 +563,7 @@ console.log(conversation);
         "question": question,
         "shortenedQuestion": shortenedQuestion,
         "initialQuestion": getLastUserQuestion(),
-        "systemInstruction": document.getElementById('systemInstruction').value,
-        "maxTokens": selectedMaxTokens
+        "systemInstruction": document.getElementById('systemInstruction').value
       };
       
       try {
