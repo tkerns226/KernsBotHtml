@@ -666,7 +666,7 @@ function fillDropdown(data) {
         }
         var selectedOption = dropdown.options[dropdown.selectedIndex];
         var selectedContext = selectedOption.dataset.context;
-        var selectedMaxTokens = selectedOption.dataset.maxTokens;
+        
         contextDisplay.innerText = selectedContext;        
     });
 
@@ -674,6 +674,7 @@ function fillDropdown(data) {
     dropdown.addEventListener('change', function() {
         var selectedOption = dropdown.options[dropdown.selectedIndex];
         var selectedContext = selectedOption.dataset.context;
+        var selectedMaxTokens = selectedOption.dataset.maxTokens;
         contextDisplay.innerText = selectedContext;
         console.log("Selected maxTokens:", selectedMaxTokens);
     });    
