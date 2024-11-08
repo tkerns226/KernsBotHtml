@@ -179,7 +179,9 @@ header {
     z-index: 1;
     overflow: hidden;
 }
-
+  #submitButton {
+    display: none;
+  }
     .container,
     header {
       max-width: 600px;
@@ -431,13 +433,11 @@ select {
       const responsePayload = JSON.parse(atob(response.credential.split('.')[1]));
       const userEmail = responsePayload.email;
 
-      if (userEmail) {
-        // Set the email in the user_id field and enable the submit button
-        document.getElementById('user_id').value = userEmail;
-        document.getElementById('submitButton').style.display = 'block';
-      } else {
-        document.getElementById('submitButton').style.display = 'none'; // Hide the button
-      }
+  	if (userEmail) {
+    	// Set the email in the user_id field and enable the submit button
+    	document.getElementById('user_id').value = userEmail;
+    	document.getElementById('submitButton').style.display = 'block'; // Show button only after successful sign-in
+ 	 }
     }
 
     // Attach Google callback to the window object
