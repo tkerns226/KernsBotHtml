@@ -660,7 +660,6 @@ function fillDropdown(data) {
             var option = document.createElement("option");
             option.value = item.Prompt; // Assuming you want to use the ID as the value
             option.text = item.Type;
-            option.dataset.maxTokens = item.maxTokens || ''; 
             option.dataset.context = item.context || ''; 
             dropdown.add(option);
         }
@@ -674,9 +673,7 @@ function fillDropdown(data) {
     dropdown.addEventListener('change', function() {
         var selectedOption = dropdown.options[dropdown.selectedIndex];
         var selectedContext = selectedOption.dataset.context;
-        var selectedMaxTokens = selectedOption.dataset.maxTokens;
         contextDisplay.innerText = selectedContext;
-        console.log("Selected maxTokens:", selectedMaxTokens);
     });    
 }
 // Add a class to disable pointer events while copying
