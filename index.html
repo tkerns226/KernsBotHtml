@@ -167,12 +167,14 @@ body::before {
   margin-top: 15px; /* Add space above the button group */
 }
 
-  #actionButtons {
-    display: none;
-    justify-content: center; /* Center the container */
-    align-items: center;
-    gap: 15px; /* Space between Sign-In and Submit buttons */
-  }
+#actionButtons button {
+  width: 100px; /* or your preferred width */
+  margin: 10px 0;
+}
+
+.g_id_signin {
+  width: 100px; /* ensure it’s not wider than needed */
+}
 
 header {
     display: flex;
@@ -410,10 +412,12 @@ select {
           
         </div>
 
-          <div id="actionButtons" style="display: none;" class="button-group">
-          <div class="g_id_signin" data-type="standard"></div>
-          <button id="submitButton">Submit</button>
-        </div>
+<div id="actionButtons" style="display: none; justify-content: center; align-items: center; gap: 15px;">
+  <div class="g_id_signin" data-type="standard"></div>
+  <div>
+    <button id="submitButton">Submit</button>
+  </div>
+</div>
         <div id="chatDisplay">
           <p><strong>Chat History:</strong></p>
           <div id="chatText"></div>
