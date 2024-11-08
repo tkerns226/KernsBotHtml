@@ -167,6 +167,13 @@ body::before {
   margin-top: 15px; /* Add space above the button group */
 }
 
+  #actionButtons {
+    display: none;
+    justify-content: center; /* Center the container */
+    align-items: center;
+    gap: 15px; /* Space between Sign-In and Submit buttons */
+  }
+
 header {
     display: flex;
     flex-direction: column;
@@ -180,10 +187,7 @@ header {
     z-index: 1;
     overflow: hidden;
 }
-  #submitButton {
-    display: none;
-  }
-    .container,
+container,
     header {
       max-width: 600px;
       width: 100%;
