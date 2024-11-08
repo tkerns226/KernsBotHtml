@@ -5,6 +5,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Sign-In Integration</title>
   <style>
   body {
     font-family: Arial, sans-serif;
@@ -351,16 +352,27 @@ select {
 }
 
   </style>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Sign-In Integration</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
-const userEmail =  "timothykerns@gmail.com";
+  <div id="g_id_onload" 
+       data-client_id="868046187916-djhr6mtklkrfrenr61gotingp750bbih.apps.googleusercontent.com"
+       data-callback="handleCredentialResponse"
+       data-auto_select="true">
+  </div>
+  <div class="g_id_signin" data-type="standard"></div>
+
   <div id="overlay" style="display:none;"></div>
   <img id="loadingIcon" alt="Loading..." style="display:none;">
   <div class="content-above-table">
     <div class="flex-center">
       <div class="cute-disclaimer">
         🐱‍👤 <strong>Note:</strong> KernsBot may produce inaccurate information about people, places, or facts. Sorry,
-        he tries
+        he tries                                       
       </div>
       <div class="header-container">
           <div class="header-flex">
@@ -391,7 +403,7 @@ const userEmail =  "timothykerns@gmail.com";
           
         </div>
 
-        <button id="submitButton">Submit</button>
+        <button id="submitButton" disabled>Submit</button>
         <div id="chatDisplay">
           <p><strong>Chat History:</strong></p>
           <div id="chatText"></div>
@@ -412,6 +424,25 @@ const userEmail =  "timothykerns@gmail.com";
   <script>
 
     const conversationHistory = [];
+
+    // Google Sign-In callback to handle user info
+    function handleCredentialResponse(response) {
+      // Decode JWT to extract user email
+      const responsePayload = JSON.parse(atob(response.credential.split('.')[1]));
+      const userEmail = responsePayload.email;
+
+      if (userEmail) {
+        // Set the email in the user_id field and enable the submit button
+        document.getElementById('user_id').value = userEmail;
+        document.getElementById('submitButton').disabled = false;
+      } else {
+        document.getElementById('submitButton').disabled = true;
+      }
+    }
+
+    // Attach Google callback to the window object
+    window.handleCredentialResponse = handleCredentialResponse;
+
     function handleFollowUpQuestion(originalQuestion) {
       // Prompt the user for the follow-up question using a dialog box or a modal
       const followUpQuestion = prompt("Ask your follow-up question:");
