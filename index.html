@@ -552,6 +552,8 @@ console.log(conversation);
         alert("Required fields are empty!");
         return;  // Exit the function early
       }
+      const dropdown = document.getElementById('systemInstruction');
+      const selectedMaxTokens = dropdown.options[dropdown.selectedIndex].dataset.maxTokens;
       setRandomLoadingImage();
       document.getElementById('loadingIcon').style.display = 'block';
       document.getElementById('overlay').style.display = 'block';
@@ -562,7 +564,8 @@ console.log(conversation);
         "question": question,
         "shortenedQuestion": shortenedQuestion,
         "initialQuestion": getLastUserQuestion(),
-        "systemInstruction": document.getElementById('systemInstruction').value
+        "systemInstruction": document.getElementById('systemInstruction').value,
+        "maxTokens": selectedMaxTokens
       };
       
       try {
@@ -657,11 +660,13 @@ function fillDropdown(data) {
             var option = document.createElement("option");
             option.value = item.Prompt; // Assuming you want to use the ID as the value
             option.text = item.Type;
+            option.dataset.maxTokens = item.maxTokens || ''; 
             option.dataset.context = item.context || ''; 
             dropdown.add(option);
         }
         var selectedOption = dropdown.options[dropdown.selectedIndex];
         var selectedContext = selectedOption.dataset.context;
+        var selectedMaxTokens = selectedOption.dataset.maxTokens;
         contextDisplay.innerText = selectedContext;        
     });
 
@@ -670,6 +675,7 @@ function fillDropdown(data) {
         var selectedOption = dropdown.options[dropdown.selectedIndex];
         var selectedContext = selectedOption.dataset.context;
         contextDisplay.innerText = selectedContext;
+        console.log("Selected maxTokens:", selectedMaxTokens);
     });    
 }
 // Add a class to disable pointer events while copying
