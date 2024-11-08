@@ -168,11 +168,11 @@ body::before {
 }
 
     #actionButtons {
-      display: none;
-      justify-content: center;
+      display: none; /* initially hidden until login */
+      justify-content: center; /* Center the content within */
       align-items: center;
       gap: 15px;
-      width: 100%;
+      margin-top: 20px;
     }
 
     .g_id_signin {
@@ -180,6 +180,7 @@ body::before {
     }
     #submitButton {
       width: 120px;
+      display: none;
     }
 
 header {
