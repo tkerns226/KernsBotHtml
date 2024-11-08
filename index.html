@@ -403,7 +403,7 @@ select {
           
         </div>
 
-        <button id="submitButton" disabled>Submit</button>
+        <button id="submitButton" style="display:none;">Submit</button>
         <div id="chatDisplay">
           <p><strong>Chat History:</strong></p>
           <div id="chatText"></div>
@@ -434,9 +434,9 @@ select {
       if (userEmail) {
         // Set the email in the user_id field and enable the submit button
         document.getElementById('user_id').value = userEmail;
-        document.getElementById('submitButton').disabled = false;
+        document.getElementById('submitButton').style.display = 'block';
       } else {
-        document.getElementById('submitButton').disabled = true;
+        document.getElementById('submitButton').style.display = 'none'; // Hide the button
       }
     }
 
