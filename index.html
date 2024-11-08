@@ -160,11 +160,12 @@ body::before {
       text-align: left;
     }
 
-    .button-group {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.button-group {
+  display: flex;
+  justify-content: center; /* Center the button(s) within the container */
+  align-items: center;
+  margin-top: 15px; /* Add space above the button group */
+}
 
 header {
     display: flex;
@@ -405,7 +406,10 @@ select {
           
         </div>
 
-        <button id="submitButton" style="display:none;">Submit</button>
+          <div id="actionButtons" style="display: none;" class="button-group">
+          <div class="g_id_signin" data-type="standard"></div>
+          <button id="submitButton">Submit</button>
+        </div>
         <div id="chatDisplay">
           <p><strong>Chat History:</strong></p>
           <div id="chatText"></div>
@@ -436,7 +440,7 @@ select {
   	if (userEmail) {
     	// Set the email in the user_id field and enable the submit button
     	document.getElementById('user_id').value = userEmail;
-    	document.getElementById('submitButton').style.display = 'block'; // Show button only after successful sign-in
+    	document.getElementById('actionButtons').style.display = 'flex'; 
  	 }
     }
 
