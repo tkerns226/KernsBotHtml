@@ -413,10 +413,10 @@ select {
         </div>
 
 <div id="actionButtons" style="display: none; justify-content: center; align-items: center; gap: 15px;">
-  <div class="g_id_signin" data-type="standard"></div>
-  <div>
-    <button id="submitButton">Submit</button>
-  </div>
+  <!-- Google Sign-In Button -->
+  <div class="g_id_signin" id="googleSignInButton" data-type="standard"></div>
+  <!-- Submit Button -->
+  <button id="submitButton">Submit</button>
 </div>
         <div id="chatDisplay">
           <p><strong>Chat History:</strong></p>
@@ -449,6 +449,7 @@ select {
     	// Set the email in the user_id field and enable the submit button
     	document.getElementById('user_id').value = userEmail;
     	document.getElementById('actionButtons').style.display = 'flex'; 
+	document.getElementById('googleSignInButton').style.display = 'none';
  	 }
     }
 
