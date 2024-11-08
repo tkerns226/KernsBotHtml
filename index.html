@@ -373,7 +373,7 @@ select {
        data-callback="handleCredentialResponse"
        data-auto_select="true">
   </div>
-  <div class="g_id_signin" data-type="standard"></div>
+
 
   <div id="overlay" style="display:none;"></div>
   <img id="loadingIcon" alt="Loading..." style="display:none;">
@@ -412,12 +412,10 @@ select {
           
         </div>
 
-<div id="actionButtons" style="display: none; justify-content: center; align-items: center; gap: 15px;">
-  <!-- Google Sign-In Button -->
-  <div class="g_id_signin" id="googleSignInButton" data-type="standard"></div>
-  <!-- Submit Button -->
-  <button id="submitButton">Submit</button>
-</div>
+        <div id="actionButtons">
+          <div class="g_id_signin" id="googleSignInButton" data-type="standard"></div>
+          <button id="submitButton">Submit</button>
+        </div>
         <div id="chatDisplay">
           <p><strong>Chat History:</strong></p>
           <div id="chatText"></div>
