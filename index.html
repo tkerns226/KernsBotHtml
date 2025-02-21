@@ -372,17 +372,8 @@ select {
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Sign-In Integration</title>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
-  <div id="g_id_onload" 
-       data-client_id="868046187916-djhr6mtklkrfrenr61gotingp750bbih.apps.googleusercontent.com"
-       data-callback="handleCredentialResponse"
-       data-auto_select="true">
-  </div>
-
-
   <div id="overlay" style="display:none;"></div>
   <img id="loadingIcon" alt="Loading..." style="display:none;">
   <div class="content-above-table">
@@ -421,7 +412,6 @@ select {
         </div>
 
         <div id="actionButtons">
-          <div class="g_id_signin" id="googleSignInButton" data-type="standard"></div>
           <button id="submitButton">Submit</button>
         </div>
         <div id="chatDisplay">
@@ -452,6 +442,7 @@ select {
       const userEmail = responsePayload.email;
 
   	if (userEmail) {
+        userEmail = "abc@123.com";
         document.getElementById('user_id').value = userEmail;
         document.getElementById('actionButtons').style.display = 'flex';
         document.getElementById('googleSignInButton').style.display = 'none'; // hide Google Sign-In button
