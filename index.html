@@ -181,7 +181,7 @@ body::before {
     }
     #submitButton {
       width: 120px;
-      display: none;
+      display: block;
     }
 
 header {
@@ -435,22 +435,6 @@ select {
 
     const conversationHistory = [];
 
-    // Google Sign-In callback to handle user info
-    function handleCredentialResponse(response) {
-      // Decode JWT to extract user email
-      const responsePayload = JSON.parse(atob(response.credential.split('.')[1]));
-      const userEmail = responsePayload.email;
-
-  	if (userEmail) {
-        document.getElementById('user_id').value = userEmail;
-        document.getElementById('actionButtons').style.display = 'flex';
-        document.getElementById('googleSignInButton').style.display = 'none'; // hide Google Sign-In button
-	document.getElementById('submitButton').style.display = 'block';
-      }
-    }
-
-    // Attach Google callback to the window object
-    window.handleCredentialResponse = handleCredentialResponse;
 
     function handleFollowUpQuestion(originalQuestion) {
       // Prompt the user for the follow-up question using a dialog box or a modal
