@@ -396,7 +396,7 @@ select {
 
       <div class="container">
         <div class="input-group">
-          <input id="user_id" type="text" placeholder="User ID" value="" readonly>
+          <input id="user_id" type="text" placeholder="dummyemail@gmail.com" value="" readonly>
         </div>
         <div class="input-group">
           <input id="conversationHistory" type="hidden" value="${conversationHistoryJson}">
@@ -442,7 +442,6 @@ select {
       const userEmail = responsePayload.email;
 
   	if (userEmail) {
-        userEmail = "abc@123.com";
         document.getElementById('user_id').value = userEmail;
         document.getElementById('actionButtons').style.display = 'flex';
         document.getElementById('googleSignInButton').style.display = 'none'; // hide Google Sign-In button
